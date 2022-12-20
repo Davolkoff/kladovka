@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock title %}
+
+{%block styles %}
+<link rel="stylesheet" href={% static 'css/main_page.css' %}>
+<link rel="stylesheet" href={% static 'css/dropdown_button.css' %}>
+{% endblock styles %}
+
+{% block balance %}
+    <div class="balance">
+        <a href="{% url 'replenish' %}" class="balance">
+            <img class="balance" src="{% static 'images/up_balance.svg' %}" width="20px" alt="">
+            <p class="balance">Баланс: {{ request.user.profile.balance }} рублей</p>
+        </a>
+    </div>
+    
+{% endblock balance %}
+
+{% block login_button %}
+    <a class="login" href="{% url 'login' %}">
+        <button class="login">Вход</button>
+    </a> 
+{% endblock login_button %}
+
+{% block logout_button %}
+    <div class="dropdown">
+        <button class="dropbtn">Личный кабинет</button>
+        <div class="dropdown-content">
+            <a href="{% url 'user_containers' %}">Мои контейнеры</a>
+            <a href="{% url 'reservation' %}">Арендовать контейнер</a>
+            <a class="last-dropdown-element" href="{% url 'logout' %}">Выход</a>
+        </div>
+    </div>
+    
+{% endblock logout_button %}
+
+{% block content %}
+<div class="container">
+    <img width="50%" src={% static 'images/mcd.png' %}>
+    <div class="manager-call">
+        <div class="manager-call-text">
+            <span class="block-header">Ищете склад для хранения вещей?</span>
+            <br>
+            <span class="sub-header">Оставьте свои контактные данные и наш менеджер вам перезвонит</span>
+        </div>
+        <form class = "form", method="post">
+            {% csrf_token %}
+            <div class="form__group">
+                {{ form.name }}
+                <label class="form__label">Ваше имя</label>
+            </div>
+
+            <div class="form__group">
+                {{ form.phone }}
+                <label class="form__label">Номер телефона</label>
+            </div>
+            <input class="form__button" type="submit" value="Оставить заявку" >
+        </form>
+    </div> 
+</div>
+
+<hr>
+
+<div class="map-block">
+    <span class="block-header">Как нас найти?</span>
+    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2204.4239837422647!2d84.96216368758257!3d56.46045650599658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4326935325918259%3A0xae07a0a750087383!2z0YPQuy4g0JLQtdGA0YjQuNC90LjQvdCwLCAzOdCQLCDQotC-0LzRgdC6LCDQotC-0LzRgdC60LDRjyDQvtCx0LsuLCA2MzQwMzQ!5e0!3m2!1sru!2sru!4v1670831992693!5m2!1sru!2sru" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+<hr>
+{% endblock content %}

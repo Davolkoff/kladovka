@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/user_containers.css' %}">
+<link rel="stylesheet" href={% static 'css/dropdown_button.css' %}>
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock styles %}
+
+{% block balance %}
+    <div class="balance">
+        <a href="{% url 'replenish' %}" class="balance">
+            <img class="balance" src="{% static 'images/up_balance.svg' %}" width="20px" alt="">
+            <p class="balance">Баланс: {{ request.user.profile.balance }} рублей</p>
+        </a>
+    </div>
+    
+{% endblock balance %}
+
+{% block logout_button %}
+    <div class="dropdown">
+        <button class="dropbtn">Личный кабинет</button>
+        <div class="dropdown-content">
+            <a href="{% url 'user_containers' %}">Мои контейнеры</a>
+            <a href="{% url 'reservation' %}">Арендовать контейнер</a>
+            <a class="last-dropdown-element" href="{% url 'logout' %}">Выход</a>
+        </div>
+    </div>
+    
+{% endblock logout_button %}
+
+
+{% block content %}
+<h1 class="login-heading">Пополнение баланса</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form__group">
+        {{ form.amount }}
+        <label class="form__label">Сумма пополнения</label>
+    </div>
+
+    <input class="form__button" type="submit" value="Пополнить" >
+</form>
+{% endblock content %}

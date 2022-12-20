@@ -1,0 +1,93 @@
+.containers-list {
+    display:flex;
+    flex-wrap:wrap;
+    margin-bottom: 40px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-info {
+    text-align: center;
+    width:300px;
+    border-radius: 25px;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+    font-family: 'Lato', sans-serif;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.all-containers {
+    display: flex;
+    gap: 5%;
+    justify-content: space-around;
+}
+
+.main-content {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.containers-list-heading {
+    font-family: 'Lato', sans-serif;
+    font-size: 35px;
+    font-weight: lighter;
+    margin-bottom: 5%;
+}
+
+button.rent-cancel {
+    border-radius: 25px;
+    background-color: #ff2c2c;
+    border: none;
+    padding: 5px;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+    transition: 0.5s;
+}
+
+button.rent-cancel:disabled {
+    background-color: #ff7474;
+}
+
+button.rent-cancel:enabled:hover {
+    background-color: #ff2c2c;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+}
+
+hr {
+    width: 60%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: #04C12E;
+    border: none;
+    height: 2px;
+}
+
+.containers-full-price {
+    margin-top: 2%;
+    font-family: 'Lato', sans-serif;
+    font-size: 25px;
+    font-weight: lighter;
+}
+
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+    color: red;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+}
+
+.category {
+    font-family: 'Lato', sans-serif;
+    font-size: 25px;
+    font-weight: lighter;
+}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/user_containers.css' %}">
+<link rel="stylesheet" href={% static 'css/dropdown_button.css' %}>
+{% endblock styles %}
+
+{% block balance %}
+    <div class="balance">
+        <a href="{% url 'replenish' %}" class="balance">
+            <img class="balance" src="{% static 'images/up_balance.svg' %}" width="20px" alt="">
+            <p class="balance">Баланс: {{ request.user.profile.balance }} рублей</p>
+        </a>
+    </div>
+    
+{% endblock balance %}
+
+{% block logout_button %}
+    <div class="dropdown">
+        <button class="dropbtn">Личный кабинет</button>
+        <div class="dropdown-content">
+            <a href="{% url 'user_containers' %}">Мои контейнеры</a>
+            <a href="{% url 'reservation' %}">Арендовать контейнер</a>
+            <a class="last-dropdown-element" href="{% url 'logout' %}">Выход</a>
+        </div>
+    </div>
+    
+{% endblock logout_button %}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+{% if not error %}
+<h1 class="containers-list-heading">Ваши контейнеры</h1>
+<div class="main-content">
+    <div class="all-containers">
+
+        {% if small_containers %}
+        <div class="containers-list">
+            <h1 class="category">Базовые</h1>
+        {% for container in small_containers %}
+        <div class="container-info">
+            <p><b>ID контейнера: {{ container.id }}</b></p>
+            <p>Цена: {{ container.price }} руб/мес</p>
+            <p>Габариты: {{ container.dimensions }}</p>
+            <p>Следующая оплата: {{ container.rent_deadline|date:"d.m.Y" }}</p>
+            
+
+            <a href="{% url 'rent_cancel' container_id=container.id %}">
+                {% if container.loaded %}
+                <button disabled class="rent-cancel" title="В контейнере уже лежат ваши вещи">Отменить аренду</button>
+                {% else %}
+                <button class="rent-cancel" onclick="return confirm('Вы уверены, что хотите отменить аренду?');">Отменить аренду</button>
+                {% endif %}
+            </a>
+            
+        </div>    
+        {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% if middle_containers %}
+        <div class="containers-list">
+            <h1 class="category">Средние</h1>
+            {% for container in middle_containers %}
+            <div class="container-info">
+                <p><b>ID контейнера: {{ container.id }}</b></p>
+                <p>Цена: {{ container.price }} руб/мес</p>
+                <p>Габариты: {{ container.dimensions }}</p>
+                <p>Следующая оплата: {{ container.rent_deadline|date:"d.m.Y" }}</p>
+                
+        
+                <a href="{% url 'rent_cancel' container_id=container.id %}">
+                    {% if container.loaded %}
+                    <button disabled class="rent-cancel" title="В контейнере уже лежат ваши вещи">Отменить аренду</button>
+                    {% else %}
+                    <button class="rent-cancel" onclick="return confirm('Вы уверены, что хотите отменить аренду?');">Отменить аренду</button>
+                    {% endif %}
+                </a>
+                
+            </div>    
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% if large_containers %}
+        <div class="containers-list">
+            <h1 class="category">Большие</h1>
+            {% for container in large_containers %}
+            <div class="container-info">
+                <p><b>ID контейнера: {{ container.id }}</b></p>
+                <p>Цена: {{ container.price }} руб/мес</p>
+                <p>Габариты: {{ container.dimensions }}</p>
+                <p>Следующая оплата: {{ container.rent_deadline|date:"d.m.Y" }}</p>
+                
+        
+                <a href="{% url 'rent_cancel' container_id=container.id %}">
+                    {% if container.loaded %}
+                    <button disabled class="rent-cancel" title="В контейнере уже лежат ваши вещи">Отменить аренду</button>
+                    {% else %}
+                    <button class="rent-cancel" onclick="return confirm('Вы уверены, что хотите отменить аренду?');">Отменить аренду</button>
+                    {% endif %}
+                </a>
+                
+            </div>    
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+    <hr>
+    <h1 class="containers-full-price">Общая стоимость: {{ full_price }} руб/мес</h1>
+    
+</div>
+{% endif %}
+
+<div class="error-message">
+    <p class="error-message">{{error}}</p>
+</div>
+
+{% else %}
+<p>Войдите в профиль, чтобы видеть эту страницу</p>
+{% endif %}
+{% endblock content %}

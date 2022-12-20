@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href={% static 'css/main_page.css' %}>
+    {% block styles %}
+    {% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Belgrano&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Belgrano&family=Lato&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <a class="logo" href="{% url 'main' %}">
+            <div class="logo">
+                <span class="company-name">kladovka.ru</span>
+                <span class="slogan">ваши вещи в надежных руках</span>
+            </div>
+        </a>
+
+        <div class="profile-group">
+            {% if request.user.is_authenticated %}
+            
+                {% block balance %}
+                {% endblock balance %}
+
+                {% block logout_button %}
+                {% endblock %}
+
+            {% else %}
+
+                {% block login_button %}
+                {% endblock %}
+
+            {% endif %}
+        
+            
+        </div>
+        
+    </header>
+ 
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <footer>
+        <div class="social-networks">
+            <a href="https://wa.me/79527932000"><img src={% static 'images/social_networks/whatsapp.png'%}></a>
+            <a href="https://vk.com/davolkoff"><img src={% static 'images/social_networks/vk.png'%}></a>
+            <a href="https://www.instagram.com/davolkoff/"><img src={% static 'images/social_networks/instagram.png'%}></a>
+        </div>
+
+        <div class="kladovka-info">
+            <p>ООО "Кладовка"</p>
+            <p>ИНН: 12345678910</p>
+            <p>Адрес: г.Томск, ул.Вершнина 39А</p>
+        </div>
+
+        <div class="phone-number">
+            <img src={% static 'images/phone.png'%} alt="">
+            <a href="tel:+79527932000">+79527932000</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Вход на сайт{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="full-login-form">
+    <h1 class="login-heading">Вход в личный кабинет</h1>
+
+    <form class="form" method="POST">
+
+        {% csrf_token %}
+        
+        {% for f in form %}
+        <div class="form__group">
+            {{ f }}
+            <label class="form__label">{{ f.label }}</label>
+        </div>
+        {% endfor %}
+
+        <input class="form__button" type="submit" value="Войти на сайт" >
+        {% if form.errors %}
+        <span class="auth__error">Неправильный логин и/или пароль</span>
+        {% endif %}
+    </form>
+        {% if not form.errors %}
+        <a href="{% url 'registration' %}"><button class="form__button">Регистрация</button></a>
+        {% endif %}
+</div>
+
+
+{% endblock content %}

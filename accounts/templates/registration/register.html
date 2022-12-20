@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock title %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="full-login-form">
+    <h1 class="login-heading">Регистрация</h1>
+
+    <form class="form" style="margin-bottom: 5%;" method="POST">
+
+        {% csrf_token %}
+        <div class="form__group">
+            {{ form1.last_name }}
+            <label class="form__label">Фамилия</label>
+        </div>
+        <div class="form__group">
+            {{ form1.first_name }}
+            <label class="form__label">Имя</label>
+        </div>
+        <div class="form__group">
+            {{ form2.patronymic }}
+            <label class="form__label">Отчество</label>
+        </div>
+        <div class="form__group">
+            {{ form1.email }}
+            <label class="form__label">Email</label>
+        </div>
+        <div class="form__group">
+            {{ form2.phone_number }}
+            <label class="form__label">Номер телефона</label>
+        </div>
+        <div class="form__group">
+            {{ form2.birth_date }}
+            <label class="form__label">День рождения</label>
+        </div>
+        <div class="form__group">
+            {{ form1.password}}
+            <label class="form__label">Пароль</label>
+        </div>
+        <div class="form__group">
+            {{ form1.password2}}
+            <label class="form__label">Повтор пароля</label>
+        </div>
+    
+        <input class="form__button" type="submit" value="Зарегистрироваться" >
+        {% if form.errors %}
+        <span class="auth__error">form.errors[0]</span>
+        {% endif %}
+        
+
+        {% if not form.errors %}
+        {% endif %}
+    </form>
+</div>
+
+
+{% endblock content %}
